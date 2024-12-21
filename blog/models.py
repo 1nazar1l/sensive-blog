@@ -8,6 +8,9 @@ class TagQuerySet(models.QuerySet):
         popular_tags = self.annotate(tags_count=Count('posts')).order_by('-tags_count')
         return popular_tags
     
+    def fetch_posts_count(self):
+        return self.annotate(posts_count=Count('posts'))
+    
 class PostQuerySet(models.QuerySet):
     def popular(self):
         popular_posts = self.annotate(likes_count=Count('likes')).order_by('-likes_count')
@@ -73,6 +76,8 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return reverse('tag_filter', args={'tag_title': self.slug})
+    
+
 
     class Meta:
         ordering = ['title']
