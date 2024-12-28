@@ -83,7 +83,7 @@ def post_detail(request, slug):
 
 
 def tag_filter(request, tag_title):
-    tag = get_object_or_404(Tag.objects.fetch_posts_count(), title=tag_title)
+    tag = get_object_or_404(Tag, title=tag_title)
 
     most_popular_tags = Tag.objects.fetch_posts_count().popular()[:5]
 
